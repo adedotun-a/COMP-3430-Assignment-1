@@ -4,14 +4,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
-int numProcesses;
-int numConcurrent;
-int workRate = 5000;
+#include <pthread.h>
 
 struct timespec diff(struct timespec start, struct timespec end);
-static void threads();
-static void processes();
+static void threads(int numProcesses, int numConcurrent, int workRate);
+static void processes(int numProcesses, int numConcurrent, int workRate);
 
 static void *hard_work(void *work)
 {
@@ -23,6 +20,9 @@ static void *hard_work(void *work)
 
 int main(int argc, char *argv[])
 {
+    int numProcesses;
+    int numConcurrent;
+    int workRate = 5000;
     if (argc > 1)
     {
         numProcesses = atoi(argv[1]);
@@ -35,9 +35,11 @@ int main(int argc, char *argv[])
         printf("Please enter the value of y: ");
         scanf("%d", &numConcurrent);
     }
+    processes(numProcesses, numConcurrent, workRate);
+    threads(numProcesses, numConcurrent, workRate);
 }
 
-static void threads()
+static void threads(int numProcesses, int numConcurrent, int workRate)
 {
     pthread_t pid[numConcurrent];
     void *returnValues[numConcurrent];
@@ -52,8 +54,8 @@ static void threads()
                 break;
             }
             pthread_create(&pid[i], NULL, hard_work, (void *)&workRate);
-            // printf("Forking into index %d\n", numProcesses--);
-            numProcesses--;
+            printf("Creating thread index %d\n", numProcesses--);
+            // numProcesses--;
         }
 
         for (int j = 0; j < numConcurrent; j++)
@@ -64,8 +66,8 @@ static void threads()
             }
             if (pthread_join(pid[j], &returnValues[j]) == 0)
             {
-                // printf("Forking into index %d\n", numProcesses--);
-                numProcesses--;
+                printf("Creating thread index %d\n", numProcesses--);
+                // numProcesses--;
             }
         }
     }
@@ -75,7 +77,7 @@ static void threads()
     printf("Time elapsed is %ld nanoseconds\n", diff(time1, time2).tv_nsec);
 }
 
-static void processes()
+static void processes(int numProcesses, int numConcurrent, int workRate)
 {
     struct timespec time1, time2;
     clock_gettime(CLOCK_REALTIME, &time1);
@@ -108,4 +110,20 @@ static void processes()
     clock_gettime(CLOCK_REALTIME, &time2);
 
     printf("Time elapsed is %ld nanoseconds\n", diff(time1, time2).tv_nsec);
+}
+
+struct timespec diff(struct timespec start, struct timespec end)
+{
+    struct timespec temp;
+    if ((end.tv_nsec - start.tv_nsec) < 0)
+    {
+        temp.tv_sec = end.tv_sec - start.tv_sec - 1;
+        temp.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
+    }
+    else
+    {
+        temp.tv_sec = end.tv_sec - start.tv_sec;
+        temp.tv_nsec = end.tv_nsec - start.tv_nsec;
+    }
+    return temp;
 }
