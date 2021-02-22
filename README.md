@@ -1,13 +1,31 @@
-# COMP 3430 - Assignment 1
+# COMP 3430 - Assignment 1 Adedotun Adeyemo 7784807
 
-## Adedotun Adeyemo 7784807
+## Readme
 
-### Readme
+### How to compile
+
+---
+
+cd to the directory of the submission and run the command "make"
+
+### How to run
+
+---
+
+Use the command "./assignment1 x y"
+where x is the total number of threads/processes and y is the number of conccurrent threads/processes
+
+alternatively if the x and y values are missing the user is prompted to input them.
 
 ### Hypothesis
 
-Threads were faster than processes as I expected in my hypothesis.
+---
 
-Reason: The reason is that a process has to copy a lot of data from the parent process and this spends a lot of resources and memory. Whereas, in the case of a thread very little copying of data happens. This makes threads faster than processes.
+Threads should run faster than processes as a process has to copy the data from the parent process and this would take some resources and memory to acomplish. While on the other hand a threadonly needs the function it needs to run.
 
-Conclusion: Keeping in view the data from table.txt we can clearly see that threads are faster than processes.
+### Design Choices
+
+---
+
+The code is designed to run the first batch of y processes or threads first, then it will check if one of those threads of the current batch are complete so another processes or thread can be added to that batch.
+For the threads a list of the currently running threads is kept,
