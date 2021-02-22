@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     runThreads(numProcesses, numConcurrent, workRate);
     clock_gettime(CLOCK_REALTIME, &time2);
 
-    printf("Time elapsed for threads is %ld nanoseconds\n", diff(time1, time2).tv_nsec);
+    printf("Time elapsed for the main program is %ld seconds and %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
     runProcesses(numProcesses, numConcurrent, workRate);
 }
 
@@ -115,7 +115,7 @@ static void runThreads(int numThreads, int numConcurrent, int workRate)
 
     clock_gettime(CLOCK_REALTIME, &time2);
 
-    //printf("Time elapsed for threads is %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
+    printf("Time elapsed for threads is %ld seconds and %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
 }
 
 /*
