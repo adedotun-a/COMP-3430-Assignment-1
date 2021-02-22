@@ -1,3 +1,15 @@
+/*
+* Course
+*
+* COMP 3340 SECTION [A02]
+* INSTRUCTOR: Rasit Eskicioglu
+* NAME: Adedotun Adeyemo
+* ASSIGNMENT: 1
+*
+* PURPOSE: The program intended to compare and contrast threads and processes and see what the performance differences are between launching a process and launching 
+           a thread.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,6 +21,10 @@
 struct timespec diff(struct timespec start, struct timespec end);
 static void threads(int numProcesses, int numConcurrent, int workRate);
 static void processes(int numProcesses, int numConcurrent, int workRate);
+
+/*
+ * This function implements the threads for this program
+ */
 
 static void *hard_work(void *work)
 {
@@ -39,6 +55,9 @@ int main(int argc, char *argv[])
     threads(numProcesses, numConcurrent, workRate);
 }
 
+/*
+ * This function implements the threads for this program
+ */
 static void threads(int numProcesses, int numConcurrent, int workRate)
 {
     pthread_t pid[numConcurrent];
