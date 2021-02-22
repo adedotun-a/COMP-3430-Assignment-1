@@ -28,4 +28,4 @@ Threads should run faster than processes as a process has to copy the data from 
 ---
 
 The code is designed to run the first batch of y processes or threads first, then it will check if one of those threads of the current batch are complete so another processes or thread can be added to that batch.
-For the threads a list of the currently running threads is kept,
+For the threads a list of the currently running threads is kept, then it creates the first batch of y threads. It then loops till the total number of threads have been made while waiting for a thread from the current batch to finish to create a thread to take its place.
