@@ -31,3 +31,5 @@ As seen in the table above threads seem to run are faster than processes.
 Yes, the results match my hypothesis as threads are faster than processes with every combination of x and y value used. To ensure the results were accurate each combination of the x and y values were run 5 times, and the averages were used for the table. The result should be because the of the time proceesses need to copy the data contained in the parent class, as was mentioned in the Hypothesis.
 
 ### Is there a point of diminishing returns on how many concurrent processes/threads are running?
+I tried running the code for casses with more processes and threads than those suggested to check for ,ore prooof of diminishingreturns and came across a bug in the timespec diff function. The results seem to break after a certain point and i belive this is a result of the limits of what can be stored in a long.
+
