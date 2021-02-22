@@ -115,7 +115,7 @@ static void runThreads(int numThreads, int numConcurrent, int workRate)
 
     clock_gettime(CLOCK_REALTIME, &time2);
 
-    //printf("Time elapsed for threads is %ld nanoseconds\n", diff(time1, time2).tv_nsec);
+    //printf("Time elapsed for threads is %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
 }
 
 /*
@@ -162,8 +162,8 @@ static void runProcesses(int numProcesses, int numConcurrent, int workRate)
 
     clock_gettime(CLOCK_REALTIME, &time2);
 
-    printf("Time elapsed for processes is %ld nanoseconds\n", diff(time1, time2).tv_nsec);
-}
+    printf("Time elapsed for processes is %ld seconds and %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
+
 
 struct timespec diff(struct timespec start, struct timespec end)
 {
