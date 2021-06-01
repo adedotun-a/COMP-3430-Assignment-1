@@ -53,12 +53,7 @@ int main(int argc, char *argv[])
         printf("Please enter the value of y: ");
         scanf("%d", &numConcurrent);
     }
-    struct timespec time1, time2;
-    clock_gettime(CLOCK_REALTIME, &time1);
     runThreads(numProcesses, numConcurrent, workRate);
-    clock_gettime(CLOCK_REALTIME, &time2);
-
-    printf("Time elapsed for the main program is %ld seconds and %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
     runProcesses(numProcesses, numConcurrent, workRate);
 }
 
@@ -163,7 +158,7 @@ static void runProcesses(int numProcesses, int numConcurrent, int workRate)
     clock_gettime(CLOCK_REALTIME, &time2);
 
     printf("Time elapsed for processes is %ld seconds and %ld nanoseconds\n", diff(time1, time2).tv_sec, diff(time1, time2).tv_nsec);
-
+}
 
 struct timespec diff(struct timespec start, struct timespec end)
 {
